@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example </title>
+</head>
+<body>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+
+
+<div sec:authorize="isAnonymous()">
+    <form th:action="@{/login}" method="post">
+        <div><label> User Name : <input type="text" name="username"/> </label></div>
+        <div><label> Password: <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Sign In"/></div>
+    </form>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <p>已登录</p>
+    <p>登录名：<span sec:authentication="name"></span></p>
+    <p>角色：<span sec:authentication="principal.authorities"></span></p>
+    <p>Username：<span sec:authentication="principal.username"></span></p>
+    <p>Password：<span sec:authentication="principal.password"></span></p>
+    <!--<p>Email ：<span sec:authentication="principal.email"></span></p>-->
+    <!--<p>Name：<span sec:authentication="principal.name"></span></p>-->
+    <!--<p>Status：<span sec:authentication="principal.status"></span></p>-->
+    <!--<p>拥有的角色：-->
+        <!--<span sec:authorize="has('update')">管理员</span>-->
+        <!--<span sec:authorize="hasRole('ROLE_USER')">用户</span>-->
+    <!--</p>-->
+</div>
+
+</body>
+</html>

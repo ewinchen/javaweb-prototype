@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Hello World!</title>
+    <script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+<p id="myp">Will be changed</p>
+<button onclick="change()">Change</button>
+
+<div sec:authorize="hasAuthority('update')">
+    This will only be displayed if authenticated user has role ROLE_ADMIN.
+</div>
+
+<div sec:authentication="name">
+    The value of the "name" property of the authentication object should appear here.
+</div>
+
+<script>
+    function getApiUrl() {
+        return location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/api';
+    }
+
+    function change() {
+        $.ajax({
+            url: getApiUrl() + '/search_gknum_info?gknum=hellosecurity',
+            method: 'GET',
+            success: function (res) {
+                console.log(res)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        })
+    }
+</script>
+</body>
+</html>
