@@ -1,25 +1,26 @@
+<%@ include file="include.jsp"%>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Hello World!</title>
-    <script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
 </head>
 <body>
-<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-<form th:action="@{/logout}" method="post">
+<form action="/logout" method="post">
     <input type="submit" value="Logout"/>
 </form>
+
 <p id="myp">Will be changed</p>
 <button onclick="change()">Change</button>
 
-<div sec:authorize="hasAuthority('update')">
-    This will only be displayed if authenticated user has role ROLE_ADMIN.
-</div>
+<p>
+    <shiro:hasRole name="admin">admin<br/></shiro:hasRole>
+    <shiro:hasRole name="user">user<br/></shiro:hasRole>
 
-<div sec:authentication="name">
-    The value of the "name" property of the authentication object should appear here.
-</div>
+    <shiro:hasPermission name="button:view">
+        <button>Click Me</button>
+    </shiro:hasPermission>
+</p>
+
 
 <script>
     function getApiUrl() {

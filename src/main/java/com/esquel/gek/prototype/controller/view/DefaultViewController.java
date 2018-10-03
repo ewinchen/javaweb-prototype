@@ -20,18 +20,15 @@ public class DefaultViewController {
     @RequestMapping("/hello")
     public String hello() {
         return "hello";
-
     }
-//
-//    @RequestMapping("/login")
-//    public String login() {
-//        return "login";
-//    }
 
-
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @RequestMapping("/replenishment_helper")
     public String replenishmentHelper() {
-        return "replenishment_helper.html";
+        return "replenishment_helper";
     }
 }

@@ -27,6 +27,12 @@ public class DataSourceConfig {
         return localMssqlProperties().initializeDataSourceBuilder().build();
     }
 
+    @Bean
+    public JdbcTemplate localMssqlJdbcTemplate(
+            @Qualifier("localMssqlDataSource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
 //    @Bean
 //    @ConfigurationProperties("app.datasource.kmis")
 //    public DataSourceProperties kmisProperties() {

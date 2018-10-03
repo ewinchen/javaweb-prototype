@@ -8,12 +8,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link th:href="@{/css/kendo.common-bootstrap.min.css}" href="../static/css/kendo.common-bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/kendo.bootstrap-v4.min.css}" href="../static/css/kendo.bootstrap-v4.min.css" rel="stylesheet">
-    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>
-    <script th:src="@{/js/kendo.all.min.js}" src="../static/js/kendo.all.min.js"></script>
-    <script th:src="@{/js/bootstrap.bundle.min.js}" src="../static/js/bootstrap.bundle.min.js"></script>
+    <link th:href="@{/css/kendo.common-bootstrap.min.css}" href="../../../resources/static/css/kendo.common-bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/kendo.bootstrap-v4.min.css}" href="../../../resources/static/css/kendo.bootstrap-v4.min.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../../../resources/static/css/bootstrap.min.css" rel="stylesheet">
+    <script th:src="@{/js/jquery.min.js}" src="../../../resources/static/js/jquery.min.js"></script>
+    <script th:src="@{/js/kendo.all.min.js}" src="../../../resources/static/js/kendo.all.min.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}" src="../../../resources/static/js/bootstrap.bundle.min.js"></script>
     <title>补单辅助查询</title>
     <style>
         html,
