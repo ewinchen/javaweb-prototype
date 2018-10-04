@@ -18,8 +18,10 @@ public class ShiroConfig {
 //                "admin=admin,admin");
 //        return realm;
 
-        Realm realm = new CustomJdbcRealm();
-        return realm;
+        CustomJdbcRealm customJdbcRealm = new CustomJdbcRealm();
+//        实现RolePermissionResolver 可以直接给单独的用户赋权
+//        customJdbcRealm.setRolePermissionResolver();
+        return customJdbcRealm;
     }
 
     @Bean

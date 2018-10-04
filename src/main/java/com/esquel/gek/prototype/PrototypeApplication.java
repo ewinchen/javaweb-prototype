@@ -2,11 +2,18 @@ package com.esquel.gek.prototype;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class PrototypeApplication {
+public class PrototypeApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(PrototypeApplication.class);
+    }
+
+    public static void main(String[] args) {
 		SpringApplication.run(PrototypeApplication.class, args);
 	}
 }
