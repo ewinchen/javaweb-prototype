@@ -1,10 +1,8 @@
-<%@ include file="include.jsp"%>
-<!DOCTYPE html>
-<head>
-    <title>Hello World!</title>
-    <script src="/js/jquery.min.js"></script>
-</head>
-<body>
+<%@include file="include.jsp"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout>
+
 <form action="/logout" method="post">
     <input type="submit" value="Logout"/>
 </form>
@@ -41,5 +39,4 @@
         })
     }
 </script>
-</body>
-</html>
+</t:layout>

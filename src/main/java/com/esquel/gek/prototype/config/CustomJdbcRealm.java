@@ -65,7 +65,7 @@ public class CustomJdbcRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
 
-        if (userList.get(0).get("enable").equals(0)) {
+        if (userList.get(0).get("enable").equals(false)) {
             throw new LockedAccountException();
         }
 

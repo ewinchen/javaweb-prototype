@@ -1,6 +1,7 @@
 package com.esquel.gek.prototype.controller.api;
 
 import com.esquel.gek.prototype.service.DefaultService;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,9 @@ public class DefaultApiController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "hello";
+        // 使用shiro默认的加密方式
+        String password = new DefaultPasswordService().encryptPassword("123");
+        return "hello, " + password;
     }
 
     @GetMapping("/array-list")

@@ -7,6 +7,7 @@
 <body>
 <div class="container">
     <h1>Title</h1>
+    <%=  response.getStatus()  %>
     <div>
         Please contact the operator with the above information.
     </div>
