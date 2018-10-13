@@ -52,10 +52,10 @@ public class DefaultViewController {
         return "/setting";
     }
 
-    @RequestMapping("/hello")
+    @RequestMapping("/test")
     public String hello(Model model) {
-        setPageModel(model, "/hello", "Test", "You Want to Kill Me?", "Test", "");
-        return "/hello";
+        setPageModel(model, "/test", "Test", "You Want to Kill Me?", "Test", "");
+        return "test";
     }
 
     @RequestMapping("/login")

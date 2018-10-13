@@ -19,4 +19,6 @@
 
 <li <c:if test="${pageUrl == '/setting'}">class="active"</c:if>><a href="/setting"><i class="fa fa-gear"></i><span>Setting</span></a></li>
 
-<li <c:if test="${pageUrl == '/hello'}">class="active"</c:if>><a href="/hello"><i class="fa fa-eyedropper"></i><span>Hello</span></a></li>
+<shiro:hasAnyRoles name="admin,user">
+<li <c:if test="${pageUrl == '/test'}">class="active"</c:if>><a href="/test"><i class="fa fa-eyedropper"></i><span>Test</span></a></li>
+</shiro:hasAnyRoles>

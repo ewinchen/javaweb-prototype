@@ -11,6 +11,7 @@
 <button onclick="change()">Change</button>
 
 <p>
+    <shiro:hasRole name="sysadmin">sysadmin<br/></shiro:hasRole>
     <shiro:hasRole name="admin">admin<br/></shiro:hasRole>
     <shiro:hasRole name="user">user<br/></shiro:hasRole>
 

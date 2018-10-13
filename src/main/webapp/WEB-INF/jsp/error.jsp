@@ -2,15 +2,22 @@
 <html>
 <head>
     <title>Error</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
-    <h1>Title</h1>
-    <%=  response.getStatus()  %>
-    <div>
+    <h1>Error</h1>
+    Status: ${pageContext.response.status}
+    <hr>
+    Message: ${pageContext.exception.message}
+
+    <hr>
+    <p>
         Please contact the operator with the above information.
-    </div>
+    </p>
+
+    ${errors.status}
+    ${errors.message}
 </div>
 </body>
 </html>

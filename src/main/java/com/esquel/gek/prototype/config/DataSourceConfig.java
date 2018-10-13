@@ -1,5 +1,9 @@
 package com.esquel.gek.prototype.config;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,6 +13,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 public class DataSourceConfig {
@@ -32,6 +37,15 @@ public class DataSourceConfig {
             @Qualifier("localMssqlDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
+
+//    @Bean
+//    public SqlSession sqlSession(@Qualifier("localMssqlDataSource") DataSource dataSource) throws Exception {
+//        SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+//        sqlSessionFactory.setDataSource(dataSource);
+//        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactory.getObject()));
+//        return sqlSessionTemplate;
+//
+//    }
 
 //    @Bean
 //    @ConfigurationProperties("app.datasource.kmis")

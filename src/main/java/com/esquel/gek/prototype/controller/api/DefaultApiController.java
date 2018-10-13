@@ -1,5 +1,7 @@
 package com.esquel.gek.prototype.controller.api;
 
+import com.esquel.gek.prototype.dao.DefaultDao;
+import com.esquel.gek.prototype.mapper.UsersMapper;
 import com.esquel.gek.prototype.service.DefaultService;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.slf4j.Logger;
@@ -20,6 +22,12 @@ public class DefaultApiController {
 
     @Autowired
     private DefaultService defaultService;
+
+    @Autowired
+    private UsersMapper usersMapper;
+
+    @Autowired
+    private DefaultDao defaultDao;
 
     @GetMapping("/search_gknum_info")
     public Map<String, Object> searchGkNumInfo(@RequestParam("gknum") String gkNum, @RequestParam(name="jobnum", required = false) String jobNum) {
@@ -46,6 +54,15 @@ public class DefaultApiController {
     public String hello() {
         // 使用shiro默认的加密方式
         String password = new DefaultPasswordService().encryptPassword("123");
+
+        logger.info(usersMapper.findByUsername("admin").toString());
+
+        logger.info(usersMapper.selectById(1).toString());
+
+        logger.info(defaultDao.getUser(2).toString());
+
+        logger.info(defaultDao.getUserProxy(3).toString());
+
         return "hello, " + password;
     }
 
