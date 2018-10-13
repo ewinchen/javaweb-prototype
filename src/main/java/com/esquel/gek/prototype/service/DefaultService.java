@@ -12,4 +12,6 @@ public interface DefaultService {
     List<Map<String, Object>> getPackDetail();
 
     List<Map<String, Object>> getPpoNum();
+
+    void hello();
 }

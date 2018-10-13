@@ -7,6 +7,8 @@ import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,11 +25,7 @@ public class DefaultApiController {
     @Autowired
     private DefaultService defaultService;
 
-    @Autowired
-    private UsersMapper usersMapper;
 
-    @Autowired
-    private DefaultDao defaultDao;
 
     @GetMapping("/search_gknum_info")
     public Map<String, Object> searchGkNumInfo(@RequestParam("gknum") String gkNum, @RequestParam(name="jobnum", required = false) String jobNum) {
@@ -55,13 +53,7 @@ public class DefaultApiController {
         // 使用shiro默认的加密方式
         String password = new DefaultPasswordService().encryptPassword("123");
 
-        logger.info(usersMapper.findByUsername("admin").toString());
-
-        logger.info(usersMapper.selectById(1).toString());
-
-        logger.info(defaultDao.getUser(2).toString());
-
-        logger.info(defaultDao.getUserProxy(3).toString());
+        defaultService.hello();
 
         return "hello, " + password;
     }

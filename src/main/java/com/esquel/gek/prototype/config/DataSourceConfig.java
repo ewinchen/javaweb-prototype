@@ -1,7 +1,6 @@
 package com.esquel.gek.prototype.config;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,7 +9,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Objects;
@@ -20,32 +23,62 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @ConfigurationProperties("app.datasource.local.mssql")
-    public DataSourceProperties localMssqlProperties() {
+    @ConfigurationProperties("app.datasource.local.sqlserver")
+    public DataSourceProperties localSqlserverProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @Primary
-    @ConfigurationProperties("app.datasource.local.mssql")
-    public DataSource localMssqlDataSource() {
-        return localMssqlProperties().initializeDataSourceBuilder().build();
+    @ConfigurationProperties("app.datasource.local.sqlserver")
+    public DataSource localSqlserverDataSource() {
+        return localSqlserverProperties().initializeDataSourceBuilder().build();
     }
 
     @Bean
-    public JdbcTemplate localMssqlJdbcTemplate(
-            @Qualifier("localMssqlDataSource") DataSource dataSource) {
+    @ConfigurationProperties("app.datasource.local.mysql")
+    public DataSourceProperties localMysqlProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties("app.datasource.local.mysql")
+    public DataSource localMysqlDataSource() {
+        return localMysqlProperties().initializeDataSourceBuilder().build();
+    }
+
+    @Bean
+    public JdbcTemplate localSqlserverJdbcTemplate(
+            @Qualifier("localSqlserverDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
-//    @Bean
-//    public SqlSession sqlSession(@Qualifier("localMssqlDataSource") DataSource dataSource) throws Exception {
-//        SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
-//        sqlSessionFactory.setDataSource(dataSource);
-//        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactory.getObject()));
-//        return sqlSessionTemplate;
-//
-//    }
+    /**
+     * mybatis多数据源权宜之计，后续应该在xml文件配置各自的environment，然后使用SSqlSessionFactoryBuilder().build()设置
+     * new SqlSessionFactoryBean()是通过设置所有属性后
+     * @param dataSource
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public SqlSession customSqlSession(@Qualifier("localMysqlDataSource") DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        Resource resource = new ClassPathResource("mybatis-config.xml");
+        sqlSessionFactoryBean.setConfigLocation(resource);
+        return new SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactoryBean.getObject()));
+
+    }
+
+    @Bean
+    public PlatformTransactionManager localSqlserverTransactionManager(@Qualifier("localSqlserverDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public PlatformTransactionManager localMysqlTransactionManager(@Qualifier("localMysqlDataSource") DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 
 //    @Bean
 //    @ConfigurationProperties("app.datasource.kmis")

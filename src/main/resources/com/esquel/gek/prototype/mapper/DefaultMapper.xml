@@ -6,6 +6,10 @@
 
 <mapper namespace="com.esquel.gek.prototype.mapper.DefaultMapper">
     <select id="selectUserById" resultType="Users">
-        select * from users where id = #{id}
+        select * from users WITH (TABLOCKX) where id = #{id}
+    </select>
+
+    <select id="selectCity" resultType="java.util.HashMap">
+        select * from city  limit 1 offset 10 for update
     </select>
 </mapper>
