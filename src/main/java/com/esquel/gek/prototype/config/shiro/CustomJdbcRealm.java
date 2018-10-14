@@ -1,4 +1,4 @@
-package com.esquel.gek.prototype.config;
+package com.esquel.gek.prototype.config.shiro;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationException;
@@ -6,22 +6,24 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.JdbcUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
+//@Component
 public class CustomJdbcRealm extends AuthorizingRealm {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public CustomJdbcRealm(JdbcTemplate jdbcTemplate) {
+        super();
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -29,8 +31,8 @@ public class CustomJdbcRealm extends AuthorizingRealm {
             throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
         } else {
             String username = (String) ((Map) this.getAvailablePrincipal(principalCollection)).get("username");
-            Set<String> roleNames = new LinkedHashSet();
-            Set<String> permissions = new LinkedHashSet();
+            Set<String> roleNames = new LinkedHashSet<>();
+            Set<String> permissions = new LinkedHashSet<>();
 
             List<Map<String, Object>> roleList = jdbcTemplate.queryForList("select a.role_name from role a inner join users_role b on a.id = b.role_id inner join users c on b.users_id = c.id where c.username = ?", username);
             for (Map<String, Object> role : roleList) {
@@ -69,8 +71,6 @@ public class CustomJdbcRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
 
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(userList.get(0), userList.get(0).get("password"), getName());
-
-        return simpleAuthenticationInfo;
+        return new SimpleAuthenticationInfo(userList.get(0), userList.get(0).get("password"), getName());
     }
 }

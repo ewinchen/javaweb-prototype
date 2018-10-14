@@ -1,39 +1,40 @@
-package com.esquel.gek.prototype.config;
+package com.esquel.gek.prototype.config.shiro;
 
 import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.RememberMeManager;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
-import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.Cookie;
-import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class ShiroConfig {
 
+
     @Bean
-    public Realm realm() {
+    public Realm realm(JdbcTemplate jdbcTemplate) {
 //        TextConfigurationRealm realm = new TextConfigurationRealm();
 //        realm.setUserDefinitions("user=user,user\n" +
 //                "admin=admin,admin");
 //        return realm;
 
-        CustomJdbcRealm customJdbcRealm = new CustomJdbcRealm();
-        // 设置shiro默认的密码解析器，
-        // 需配合new DefaultPasswordService().encryptPassword()使用来设置密码，可以代替bcrypt
-        // 也可用cli来手工创建密码java -jar ./shiro-tools-hasher-1.3.2-cli.jar -p
+        /*
+           设置shiro默认的密码解析器，
+           需配合new DefaultPasswordService().encryptPassword()使用来设置密码，可以代替bcrypt
+           也可用cli来手工创建密码java -jar ./shiro-tools-hasher-1.3.2-cli.jar -p
+
+           实现RolePermissionResolver 可以直接给单独的用户赋权
+           customJdbcRealm.setRolePermissionResolver();
+         */
+        CustomJdbcRealm customJdbcRealm = new CustomJdbcRealm(jdbcTemplate);
         customJdbcRealm.setCredentialsMatcher(new PasswordMatcher());
-//        实现RolePermissionResolver 可以直接给单独的用户赋权
-//        customJdbcRealm.setRolePermissionResolver();
+
         return customJdbcRealm;
     }
 
