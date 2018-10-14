@@ -1,14 +1,10 @@
 package com.esquel.gek.prototype.controller.api;
 
-import com.esquel.gek.prototype.dao.DefaultDao;
-import com.esquel.gek.prototype.mapper.UsersMapper;
 import com.esquel.gek.prototype.service.DefaultService;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,8 +20,6 @@ public class DefaultApiController {
 
     @Autowired
     private DefaultService defaultService;
-
-
 
     @GetMapping("/search_gknum_info")
     public Map<String, Object> searchGkNumInfo(@RequestParam("gknum") String gkNum, @RequestParam(name="jobnum", required = false) String jobNum) {

@@ -22,14 +22,13 @@ public class DefaultServiceImpl implements DefaultService {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultServiceImpl.class);
 
-//    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     /**
      * 使用@Mapper，并且是单数据源的时候是不需要@Autowired的  参考日志：Enabling autowire by type for MapperFactoryBean with name 'usersMapper'.
      * 多数据源的时候，不加@AutoWired的话，系统启动时不知道注入到哪个SqlSession，会报错，加上@Autowired 会自动注入到默认的SqlSession！
      *
      * 如果不使用@Mapper的话，不会自动注入，须要@Autowired的注解！
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private UsersMapper usersMapper;
 
