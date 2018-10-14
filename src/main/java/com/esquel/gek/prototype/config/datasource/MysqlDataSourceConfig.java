@@ -22,7 +22,7 @@ import java.util.Objects;
  * 多数据源的时候，可以用MapperScan指定Mapper要注入的sqlSession，前提要不适用@Mapper注解，@Mapper注解会为所有注册的sqlSession都注入所有Mapper
  */
 @Configuration
-@MapperScan(basePackages = "com.esquel.gek.prototype.mapper", sqlSessionFactoryRef = "mysqlSqlSession")
+@MapperScan(basePackages = "com.esquel.gek.prototype.mysqlmapper", sqlSessionFactoryRef = "mysqlSqlSession")
 public class MysqlDataSourceConfig {
 
     @Bean

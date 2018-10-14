@@ -5,10 +5,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <typeAliases>
-        <package name="com.esquel.gek.prototype.domain" />
-    </typeAliases>
     <mappers>
-        <mapper resource="com/esquel/gek/prototype/mapper/MysqlMapper.xml" />
+        <mapper resource="com/esquel/gek/prototype/mysqlmapper/MysqlMapper.xml" />
     </mappers>
 </configuration>
