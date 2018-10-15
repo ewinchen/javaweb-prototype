@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <classPathEntry location="C:\Users\chenyongp\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\6.2.2.jre8\mssql-jdbc-6.2.2.jre8.jar"/>
+
+    <context id="SQLServer" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://localhost:1433;databaseName=my_mis;user=sa;password=sa">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.esquel.gek.prototype.domain" targetProject="D:\cyp\Documents\prj\java\prototype\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.esquel.gek.prototype.mapper" targetProject="D:\cyp\Documents\prj\java\prototype\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.esquel.gek.prototype.mapper" targetProject="D:\cyp\Documents\prj\java\prototype\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="users" domainObjectName="Users">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="SqlServer" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
