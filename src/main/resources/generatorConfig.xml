@@ -10,8 +10,10 @@
     <context id="SQLServer" targetRuntime="MyBatis3">
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
-        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+
 
         <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
                         connectionURL="jdbc:sqlserver://localhost:1433;databaseName=my_mis;user=sa;password=sa">
@@ -36,7 +38,8 @@
 
         <table tableName="users" domainObjectName="Users">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="SqlServer" identity="true"/>
+            <!--使用SqlServer竟然不能获取自增ID，改成JDBC就可以了，对应的Mapper没有selectKey-->
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" type="post"/>
         </table>
 
     </context>

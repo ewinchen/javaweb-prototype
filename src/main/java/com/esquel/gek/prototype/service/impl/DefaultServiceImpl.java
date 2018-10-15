@@ -1,9 +1,11 @@
 package com.esquel.gek.prototype.service.impl;
 
 import com.esquel.gek.prototype.dao.DefaultDao;
+import com.esquel.gek.prototype.domain.Users;
 import com.esquel.gek.prototype.domain.UsersExample;
 import com.esquel.gek.prototype.mapper.UsersMapper;
 import com.esquel.gek.prototype.service.DefaultService;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +72,29 @@ public class DefaultServiceImpl implements DefaultService {
         logger.info("Mapper of UsersExample: " + usersMapper.selectByExample(usersExample).get(0).toString());
 
         logger.info("Mapper of Primary Key: " + usersMapper.selectByPrimaryKey(1L).toString());
+
+        Users user = new Users();
+//        user.setUsername("Edwin");
+//        String password = new DefaultPasswordService().encryptPassword("behappy");
+//        user.setUsername("Ewin");
+//        String password = new DefaultPasswordService().encryptPassword("beStrong");
+//        user.setUsername("Robert");
+//        String password = new DefaultPasswordService().encryptPassword("beGood");
+//        user.setUsername("SuperRobert");
+//        String password = new DefaultPasswordService().encryptPassword("beSuper");
+//        user.setUsername("SuperEdwin");
+//        String password = new DefaultPasswordService().encryptPassword("bePower");
+//        user.setUsername("RampageEdwin");
+//        String password = new DefaultPasswordService().encryptPassword("beHealthy");
+        user.setUsername("TiredEdwin1");
+        String password = new DefaultPasswordService().encryptPassword("beLazy1");
+        user.setPassword(password);
+        user.setEnable(true);
+        usersMapper.insert(user);
+
+        logger.info("Identity: " + user.getId());
+
+        logger.info("new User: " + user);
 
         /**
          * 测试调用不同的数据源
